@@ -277,7 +277,7 @@ const convertAtomicBlock = (block, contentState, blockNodeAttributes) => {
   } else if (mediaType === 'iframe') {
     return (
       <div className="media-wrap iframe-wrap">
-        <iframe src={url} frameBorder="0" style={{ width, height}}></iframe>
+        <iframe src={url} frameBorder="0" style={{ width: width || undefined, height: height || undefined }}></iframe>
       </div>
     )
   } else if (mediaType === 'hr') {
