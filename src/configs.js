@@ -274,6 +274,12 @@ const convertAtomicBlock = (block, contentState, blockNodeAttributes) => {
     return <div className="media-wrap video-wrap"><video controls {...nodeAttrAsProps} {...meta} src={url} width={width} height={height} /></div>
   } else if (mediaType === 'embed') {
     return <div className="media-wrap embed-wrap"><div dangerouslySetInnerHTML={{__html: url}}/></div>
+  } else if (mediaType === 'iframe') {
+    return (
+      <div className="media-wrap iframe-wrap">
+        <iframe src={url} frameBorder="0" width={width} height={height}></iframe>
+      </div>
+    )
   } else if (mediaType === 'hr') {
     return <hr></hr>
   } else {
@@ -520,6 +526,13 @@ const htmlToEntity = (options, source) => (nodeName, node, createEntity) => {
 
     return createEntity('IMAGE', 'IMMUTABLE', entityData) 
 
+  } else if (nodeName === 'iframe') {
+    let entityData = { meta }
+    let { width, height } = node.style
+    entityData.url = node.getAttribute('src')
+    width && (entityData.width = width)
+    height && (entityData.height = height)
+    return createEntity('IFRAME', 'IMMUTABLE', entityData);
   } else if (nodeName === 'hr') {
     return createEntity('HR', 'IMMUTABLE', {}) 
   } else if (node.parentNode && node.parentNode.classList.contains('embed-wrap')) {
