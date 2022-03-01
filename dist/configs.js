@@ -320,6 +320,12 @@ var convertAtomicBlock = function convertAtomicBlock(block, contentState, blockN
       { className: "media-wrap embed-wrap" },
       _react2.default.createElement("div", { dangerouslySetInnerHTML: { __html: url } })
     );
+  } else if (mediaType === 'iframe') {
+    return _react2.default.createElement(
+      "div",
+      { className: "media-wrap iframe-wrap" },
+      _react2.default.createElement("iframe", { src: url, frameBorder: "0", width: width, height: height })
+    );
   } else if (mediaType === 'hr') {
     return _react2.default.createElement("hr", null);
   } else {
@@ -589,6 +595,16 @@ var htmlToEntity = function htmlToEntity(options, source) {
       }
 
       return createEntity('IMAGE', 'IMMUTABLE', entityData);
+    } else if (nodeName === 'iframe') {
+      var _entityData = { meta: meta };
+      var _node$style2 = node.style,
+          _width = _node$style2.width,
+          _height = _node$style2.height;
+
+      _entityData.url = node.getAttribute('src');
+      _width && (_entityData.width = _width);
+      _height && (_entityData.height = _height);
+      return createEntity('IFRAME', 'IMMUTABLE', _entityData);
     } else if (nodeName === 'hr') {
       return createEntity('HR', 'IMMUTABLE', {});
     } else if (node.parentNode && node.parentNode.classList.contains('embed-wrap')) {
