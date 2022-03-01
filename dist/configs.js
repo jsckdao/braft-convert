@@ -324,7 +324,7 @@ var convertAtomicBlock = function convertAtomicBlock(block, contentState, blockN
     return _react2.default.createElement(
       "div",
       { className: "media-wrap iframe-wrap" },
-      _react2.default.createElement("iframe", { src: url, frameBorder: "0", width: width, height: height })
+      _react2.default.createElement("iframe", { src: url, frameBorder: "0", style: { width: width, height: height } })
     );
   } else if (mediaType === 'hr') {
     return _react2.default.createElement("hr", null);
